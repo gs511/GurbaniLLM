@@ -34,4 +34,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgements
 - The Gurbani Search LLM app is powered by BaniDB, open AI models and Pinecone VectorDB.
-- Special thanks to [Streamlit](https://streamlit.io/) for providing the platform for building interactive web apps.
+- Special thanks to [BaniDB](https://github.com/KhalisFoundation/banidb-api) for providing the accurate and up to date Gurbani sources along with the API.
