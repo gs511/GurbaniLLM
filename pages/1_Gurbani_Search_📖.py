@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 import os
 import numpy as np
 load_dotenv()
-st.set_page_config(layout="wide")
+# st.set_page_config(layout="wide")
+st.set_page_config(page_title="Gurbani Search", page_icon="📈",layout="wide")
 
 
 pc = Pinecone(api_key=os.getenv('PINECONE_KEY'))
@@ -43,13 +44,13 @@ display_type = st.sidebar.radio(
     ("Punjabi and English","Punjabi Only")
 )
 
-st.sidebar.info(
-    "This is a simple Gurbani Contextual search app. "
-    "Enter your query about any topic in the text box, and the app will find the most similar shabads from the database\
-        . The Database consist of shabds from various sources such as Sri Guru Granth Sahib, Dasam Granth and others..\
-            Currently, only about 300 angs of Guru granth sahib are stored in Pinecone Vector DB and open AI model is\
-                used to generate embeddings."
-)
+# st.sidebar.info(
+#     "This is a simple Gurbani Contextual search app. "
+#     "Enter your query about any topic in the text box, and the app will find the most similar shabads from the database\
+#         . The Database consist of shabds from various sources such as Sri Guru Granth Sahib, Dasam Granth and others..\
+#             Currently, only about 300 angs of Guru granth sahib are stored in Pinecone Vector DB and open AI model is\
+#                 used to generate embeddings."
+# )
 
 
 def onExplainButtonClick(text):
@@ -74,15 +75,19 @@ def chat_widget_helper(prompt):
 
 with col2:
     st.title("Chat with Shabads")
+    st.markdown("Ask any question such as - the origin of the word or explain Gurbani to a 5 year old.")
     if "openai_model" not in st.session_state:
         st.session_state["openai_model"] = "gpt-3.5-turbo"
 
     if "messages" not in st.session_state:
-        st.session_state.messages = [{'role': 'assistant', 'content':"How can I help you with understanding Gurbani today?"}]
+        st.session_state.messages = [{'role':'system', 'content':"You are a helpful assistant that assit people in understanding Gurbani in a better way by using your knowledge of languages such as punjabi, urdu, persian, farsi, arabic and many more. Since we are dealing with multiple languages, make sure to use only valid Unicode output. Do not make up unicode output if you are not sure. "},
+                                     {'role': 'assistant', 'content':"How can I help you with understanding Gurbani today?"}]
     
-    messages = st.container(height=600)
+    messages = st.container(height=650)
 
     for message in st.session_state.messages:
+        if message["role"] == 'system':
+            continue
         messages.chat_message(message["role"]).write(message["content"])
         # with messages.chat_message(message["role"]):
         #     messages.write(message["content"])
@@ -107,6 +112,8 @@ def similar_search_helper(user_query=None):
                                             'id_': id_})
 
 with col1:
+
+#    st.write("This is inside the container")
     st.title("Gurbani Contextual Search")
     # Input box for user query
     if "simDocs" not in st.session_state:
@@ -131,21 +138,28 @@ with col1:
                 similar_search_helper()
 
     st.markdown("Search Results:")
-    for element in st.session_state.simDocs:
-        with st.form(key=str(element['id_']), border=True):
-            st.write(element['doc'])
-            # Every form must have a submit button.
-            c1, c2 = st.columns([1, 1], gap="small")
-            with c1:
-                submitted1 = st.form_submit_button("Explain")
-                if submitted1:
-                    # st.write('button cliked')
-                    chat_widget_helper("Explain more: " + element['doc'])
-            with c2:
-                submitted2 = st.form_submit_button("Explain Root Words")
-                if submitted2:
-                    chat_widget_helper("Explain the uncommon punjabi words by breaking down into their root words and its origin: " + element['doc'])
+    with st.container(height=500):
+        for element in st.session_state.simDocs:
+            with st.form(key=str(element['id_']), border=True):
+                st.write(element['doc'])
+                # Every form must have a submit button.
+                c1, c2, c3 = st.columns([1, 1, 1], gap="small")
+                with c1:
+                    submitted1 = st.form_submit_button("Explain more")
+                    if submitted1:
+                        # st.write('button cliked')
+                        chat_widget_helper("Explain the following Gurbani using your knowldege: " + element['doc'])
+                with c2:
+                    submitted2 = st.form_submit_button("Explain Root Words")
+                    if submitted2:
+                        chat_widget_helper("Explain the punjabi words by breaking down into their root words and its meanings: " + element['doc'])
+                with c3:
+                    submitted3 = st.form_submit_button("Explain to 5 yr old")
+                    if submitted3:
+                        chat_widget_helper("Explain the following shabad to a 5 year old in easy language: " + element['doc'])
 
-        # st.write(element['doc'])
-        # st.button('explain',key=element['id_'])
+            # st.write(element['doc'])
+            # st.button('explain',key=element['id_'])
 
+# ਹਉ ਵਾਰੀ ਜੀਉ ਵਾਰੀ ਨਿਰੰਕਾਰੀ ਨਾਮੁ ਧਿਆਵਣਿਆ ॥ਤਿਸੁ ਰੂਪੁ ਨ ਰੇਖਿਆ ਘਟਿ ਘਟਿ ਦੇਖਿਆ ਗੁਰਮੁਖਿ ਅਲਖੁ ਲਖਾਵਣਿਆ @ I am a sacrifice, my soul is a sacrifice, to those who meditate on the Naam, the Name of the Formless Lord.He has no form or shape; He is seen within each and every heart. The Gurmukh comes to know the unknowable.
+#  openAI unicode error-rare error use for debug
