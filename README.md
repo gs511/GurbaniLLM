@@ -24,7 +24,7 @@ To use the app, simply enter your query about any topic in the search box provid
 4. You will need 
 
 ## Feedback
-We value your feedback! If you have any suggestions or encounter any issues while using the app, please don't hesitate to reach out to us at sfe@sdf.com.
+We value your feedback! If you have any suggestions or encounter any issues while using the app, please don't hesitate to connect at https://www.linkedin.com/in/gurmukh-singh-a36538118/
 
 ## Contributing
 Contributions are welcome! If you'd like to contribute to the project, please fork the repository and submit a pull request with your changes.

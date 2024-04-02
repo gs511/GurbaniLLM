@@ -1,7 +1,7 @@
 
 runtime: python
 env: flex
-entrypoint: streamlit run main.py --server.port $PORT 
+entrypoint: streamlit run About.py --server.port $PORT 
 #gunicorn -b :$PORT main:app
 
 runtime_config:
@@ -19,6 +19,6 @@ resources:
   disk_size_gb: 10
 
 
-runtime: python
-env: flex
-entrypoint: streamlit run main.py --server.port $PORT
+# runtime: python
+# env: flex
+# entrypoint: streamlit run main.py --server.port $PORT

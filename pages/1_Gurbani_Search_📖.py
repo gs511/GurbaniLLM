@@ -94,7 +94,7 @@ with col2:
 
     if prompt := st.chat_input("Say something"):
         chat_widget_helper(prompt)
-    print(st.session_state.messages)
+    # print(st.session_state.messages)
     #     # messages.chat_message("assistant").write(f"Echo: {prompt}")
 
 
@@ -152,7 +152,7 @@ with col1:
                 with c2:
                     submitted2 = st.form_submit_button("Explain Root Words")
                     if submitted2:
-                        chat_widget_helper("Explain the punjabi words by breaking down into their root words and its meanings: " + element['doc'])
+                        chat_widget_helper("Explain the punjabi words by breaking down into their root words and its meanings and origin: " + element['doc'])
                 with c3:
                     submitted3 = st.form_submit_button("Explain to 5 yr old")
                     if submitted3:
