@@ -19,13 +19,13 @@ client = OpenAI(api_key=os.getenv('OPENAI_KEY'))
 col1, col2 = st.columns(2)
 
 if "selected_source" not in st.session_state:
-    st.session_state["selected_source"] = None
+    st.session_state["selected_source"] = 'SGGS'
 
 if "shabad_dict" not in st.session_state:
     st.session_state["shabad_dict"] = None
 
 if "current_shabad_id" not in st.session_state:
-    st.session_state["current_shabad_id"] = None
+    st.session_state["current_shabad_id"] = 1
 
 source = st.sidebar.radio(
     "Select Gurbani to Read",
@@ -153,13 +153,13 @@ with col1:
         # else:
         value = None
         if st.session_state['selected_source'] == "Bhai Gurdas Ji":
-            shabad_index = st_slider(min_value=1,max_value=711,default_value=1,steps=1)
+            shabad_index = st_slider(min_value=0,max_value=711,default_value=0,steps=1)
             shabad_index += 41000
         if st.session_state['selected_source'] == "Bhai Nand Lal Ji":
-            shabad_index = st_slider(min_value=1,max_value=510,default_value=1,steps=1)
+            shabad_index = st_slider(min_value=0,max_value=510,default_value=0,steps=1)
             shabad_index += 32001
         if st.session_state['selected_source'] == "Dasam Granth":
-            shabad_index = st_slider(min_value=1,max_value=5398,default_value=1,steps=1)
+            shabad_index = st_slider(min_value=0,max_value=5398,default_value=0,steps=1)
             shabad_index += 7402
         if st.session_state['selected_source'] == "SGGS":
             shabad_index = st_slider(min_value=1,max_value=5540,default_value=1,steps=1)
