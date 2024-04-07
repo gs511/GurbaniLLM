@@ -6,6 +6,7 @@ import os
 import numpy as np
 load_dotenv()
 import banidb
+from streamlit_super_slider import st_slider
 
 # st.set_page_config(layout="wide")
 st.set_page_config(page_title="Read Gurbani", page_icon="📈",layout="wide")
@@ -146,36 +147,43 @@ with col2:
 
 with col1:
         st.title("Read Gurbani")
+        # print(st.session_state['current_shabad_id'],"st.session_state['current_shabad_id']")
+        # if st.session_state['current_shabad_id']:
+        #     value = st.session_state['current_shabad_id']
+        # else:
+        value = None
         if st.session_state['selected_source'] == "Bhai Gurdas Ji":
-            shabad_index = st.slider('choose shabad',min_value=0,max_value=711,value=None,step=1)
+            shabad_index = st_slider(min_value=1,max_value=711,default_value=1,steps=1)
             shabad_index += 41000
         if st.session_state['selected_source'] == "Bhai Nand Lal Ji":
-            shabad_index = st.slider('choose shabad',min_value=0,max_value=1000,value=None,step=1)
+            shabad_index = st_slider(min_value=1,max_value=510,default_value=1,steps=1)
             shabad_index += 32001
         if st.session_state['selected_source'] == "Dasam Granth":
-            shabad_index = st.slider('choose shabad',min_value=0,max_value=5398,value=None,step=1)
+            shabad_index = st_slider(min_value=1,max_value=5398,default_value=1,steps=1)
             shabad_index += 7402
         if st.session_state['selected_source'] == "SGGS":
-            shabad_index = st.slider('choose shabad',min_value=1,max_value=7401,value=None,step=1)
+            shabad_index = st_slider(min_value=1,max_value=5540,default_value=1,steps=1)
             print(shabad_index,'shabad_index')
-        if shabad_index != 0:
-            if st.session_state['current_shabad_id']:
-                st.session_state['current_shabad_id'] = shabad_index
-                st.session_state['shabad_dict'] = get_bani_shabad(st.session_state['selected_source'])
-            else:
-                st.warning('Please select a Bani First.')
+        # if shabad_index != 0:
+        if st.session_state['current_shabad_id']:
+            st.session_state['current_shabad_id'] = shabad_index
+            st.session_state['shabad_dict'] = get_bani_shabad(st.session_state['selected_source'])
+        else:
+            st.warning('Please select a Bani First.')
         # print('source,,,', source)
-        button2 = st.button("next",key="3343")
-        if button2:
-            # print('next button pressed')
-            if st.session_state['current_shabad_id']:
-                # print(st.session_state['current_shabad_id'])
-                st.session_state['current_shabad_id'] = st.session_state['current_shabad_id'] + 1
-                # print(st.session_state['current_shabad_id'])
-                st.session_state['shabad_dict'] = get_bani_shabad(st.session_state['selected_source'])
-            else:
-                st.warning('Please select a Bani First.')
+        # button2 = st.button("next",key="3343")
+        # if button2:
+        #     print('next button pressed')
+        #     if st.session_state['current_shabad_id']:
+        #         print(st.session_state['current_shabad_id'])
+        #         st.session_state['current_shabad_id'] = st.session_state['current_shabad_id'] + 1
+        #         # print(st.session_state['current_shabad_id'])
+        #         st.session_state['shabad_dict'] = get_bani_shabad(st.session_state['selected_source'])
+        #     else:
+        #         st.warning('Please select a Bani First.')
         
+        
+
         with st.container(height=500):
             shabad = st.session_state['shabad_dict']
             if shabad:
@@ -204,4 +212,4 @@ with col1:
                         if submitted3:
                             chat_widget_helper("Explain the following shabad to a 5 year old in easy language: " + txt)
 
-# print(st.session_state)
+print(st.session_state)

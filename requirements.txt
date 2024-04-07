@@ -5,3 +5,4 @@ streamlit==1.32.2
 python-dotenv
 numpy
 banidb
+streamlit_super_slider
