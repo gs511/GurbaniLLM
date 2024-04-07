@@ -32,9 +32,8 @@ def search_shabads(query):
 
 # Streamlit UI
 col1, col2 = st.columns(2)
-st.sidebar.title("About")
                    
-num_docs = st.sidebar.slider('How many docs?', 1, 50, 5)
+num_docs = st.sidebar.slider('How many similar docs to return?', 1, 50, 5)
 source = st.sidebar.radio(
     "Choose a Gurbani source",
     ("All","SGGS", "Dasam Granth", 'Bhai Gurdas Ji','Bhai Nand Lal Ji')
@@ -114,7 +113,7 @@ def similar_search_helper(user_query=None):
 with col1:
 
 #    st.write("This is inside the container")
-    st.title("Gurbani Contextual Search")
+    st.title("Contextual Search")
     # Input box for user query
     if "simDocs" not in st.session_state:
         st.session_state.simDocs = [] #storing docs to maintain state
@@ -138,7 +137,7 @@ with col1:
                 similar_search_helper()
 
     st.markdown("Search Results:")
-    with st.container(height=500):
+    with st.container(height=550):
         for element in st.session_state.simDocs:
             with st.form(key=str(element['id_']), border=True):
                 st.write(element['doc'])

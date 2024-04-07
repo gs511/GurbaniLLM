@@ -1,6 +1,6 @@
 
-runtime: python
-env: flex
+runtime: python310
+# env: flex
 entrypoint: streamlit run About.py --server.port $PORT 
 #gunicorn -b :$PORT main:app
 
